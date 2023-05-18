@@ -210,6 +210,7 @@ metadata:
   name: cal-core-ingress
   namespace: cal-core
 spec:
+  ingressClassName: nginx
   rules:
   - host: "tcc.stk8s.66bit.ru"
     http:
@@ -395,6 +396,7 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
 spec:
+  ingressClassName: nginx
   rules:
   - host: "*some host*"
     http:
@@ -588,6 +590,7 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
 spec:
+  ingressClassName: nginx
   rules:
   - host: "*some host*"
     http:
@@ -739,6 +742,7 @@ metadata:
   name: tcc-postgres-ingress
   namespace: cal-core
 spec:
+  ingressClassName: nginx
   rules:
   - host: "tcc-postgres.stk8s.66bit.ru"
     http:
@@ -757,3 +761,7 @@ https://stackoverflow.com/questions/72400370/connect-to-psql-through-k8s-ingress
 Для подключения к базе данных нужно использовать port forwarding кубера, но для этого вам нужен полный доступ к kubectl, пока мы не можем его предоставить :), поэтому
 пока вы не сможете подключаться к базе извне (если всё таки очень нужно подключиться, то можете написать нам).
 Пример port forwarding: `kubectl port-forward -n default svc/dev-pg-service 5432:5432`
+
+## Про ingressClassName: nginx
+
+Раньше все конфигурации ингреса в этой инструкции были без этой команды, теперь рекомендуем её указывать, потому что иногда ингресы создаются без класса и всегда выдают 404.
